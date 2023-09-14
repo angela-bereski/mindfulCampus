@@ -1,0 +1,169 @@
+const User = require('../models/user.model');
+const Job = require('../models/job.model');
+const Todo = require('../models/todo.model');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const axios = require('axios');
+//const fs = require('fs');
+
+module.exports.getAll = (req,res) => {
+    User.find()
+    .then((req) => res.json(req))
+    .catch((err) => console.log(err))
+}
+
+module.exports.getOne = (req,res) => {
+    User.findById({_id:req.params.id})
+    .then((req) => res.json(req))
+    .catch((err) => console.log(err))
+}
+
+module.exports.update = (req,res) => {
+    User.findOneAndUpdate({_id:req.params.id}, req.body, {new:true, runValidators:true})
+    .then((req) => res.json(req))
+    .catch((err) => console.log(err))
+}
+
+// module.exports.deleteOne = (req,res) => {
+//     User.deleteOne({_id:req.params.id})
+//     .then((req) => res.json(req))
+//     .catch((err) => console.log(err))
+// }
+
+module.exports.register = (req,res) => {
+    let user = new User(req.body);
+    user.save()
+        .then((newUser) => {
+            console.log(newUser)
+            res.json(newUser);
+        })
+        .catch((err) => {
+            console.log({error:err})
+            res.status(400).json({err:err.errors});
+        })
+}
+
+module.exports.deleteUser = (req,res) => {
+    User.deleteOne({_id:req.params.id})
+    .then((req) => res.json(req))
+    .catch((err) => {
+        console.log(err);
+        res.json(err);
+    })
+}
+
+module.exports.createJob = (req,res) => {
+    let job = new Job(req.body)
+    console.log(job)
+    job.save()
+        .then((result)=>
+        res.json(result))
+        .catch((err) => {
+            console.log("Error in create job")
+            console.log(err);
+            res.status(400).json(err);
+        })
+}
+
+module.exports.getAllJobs = (req,res) => {
+    Job.find()
+    .then((req) => res.json(req))
+    .catch((err) => console.log(err))
+}
+
+module.exports.getOneJob = (req,res) => {
+    Job.findById({_id:req.params.id})
+    .then((req)=>{
+        console.log("In getOneJob")
+        res.json(req)
+    })
+    .catch((err) => console.log(err))
+}
+
+module.exports.deleteJob = (req,res) => {
+    Job.deleteOne({_id:req.params.id})
+    .then((req) => res.json(req))
+    .catch((err) => console.log(err))
+}
+
+module.exports.login = async (req,res) => {
+    User.findOne({email: req.body.email})
+        .then(user => {
+            if (user === null) {
+                res.status(400).json({message:'Invalid login attempt'})
+            } else {
+                bcrypt.compare(req.body.password, user.password)
+                    .then(passwordIsValid => {
+                        if (passwordIsValid) {
+                            res.
+                            cookie(
+                                'usertoken',
+                                jwt.sign({_id: user._id}, process.env.JWT_SECRET),
+                                {
+                                    httpOnly:true
+                                }
+                            )
+                            .json({msg: 'success!'});
+                        } else {
+                            res.status(400).json({msg: 'Invalid login attempt'})
+                        }
+                    })
+                .catch(err => {
+                    console.log('error from bcrypt compare');
+                    console.log(err);
+                    res.status(400).json({msg: 'Invalid login attempt'})
+                });
+            }
+        })
+    .catch(err => res.status(400).json(err));
+}
+
+module.exports.logOut = (req, res) => {
+    console.log("In logout controller")
+    res.cookie('usertoken', 'none', {
+        httpOnly: true,
+        expires: new Date(Date.now() + 5 * 1000)
+    })
+    .json({msg: "ok"});
+}
+
+module.exports.getLoggedUser = (req,res) => {
+    const decodedJWT = jwt.decode(req.cookies.usertoken, {complete: true });
+    User.findById(decodedJWT.payload._id)
+    .then(user => res.json(user))
+    .catch(err => res.status(400).json(err));
+}
+
+module.exports.createTodo = (req,res) => {
+    let todo = new Todo(req.body)
+    console.log(todo)
+    todo.save()
+        .then((result)=>
+        res.json(result))
+        .catch((err) => {
+            console.log("Error in create todo")
+            console.log(err);
+            res.status(400).json(err);
+        })
+}
+
+module.exports.getAllTodos = (req,res) => {
+    Todo.find()
+    .then((req) => res.json(req))
+    .catch((err) => console.log(err))
+}
+
+module.exports.getOneTodo = (req,res) => {
+    Todo.findById({_id:req.params.id})
+    .then((req)=>{
+        console.log("In getOneTodo")
+        res.json(req)
+    })
+    .catch((err) => console.log(err))
+}
+
+module.exports.deleteTodo = (req,res) => {
+    Todo.deleteOne({_id:req.params.id})
+    .then((req) => res.json(req))
+    .catch((err) => console.log(err))
+}
