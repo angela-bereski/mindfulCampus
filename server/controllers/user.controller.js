@@ -1,6 +1,7 @@
 const User = require('../models/user.model');
 const Job = require('../models/job.model');
 const Todo = require('../models/todo.model');
+const Countdown = require('../models/countdown.model')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const axios = require('axios');
@@ -164,6 +165,40 @@ module.exports.getOneTodo = (req,res) => {
 
 module.exports.deleteTodo = (req,res) => {
     Todo.deleteOne({_id:req.params.id})
+    .then((req) => res.json(req))
+    .catch((err) => console.log(err))
+}
+
+module.exports.createCountdown = (req,res) => {
+    let countdown = new Countdown(req.body)
+    console.log(countdown)
+    countdown.save()
+        .then((result)=>
+        res.json(result))
+        .catch((err) => {
+            console.log("Error in create countdown")
+            console.log(err);
+            res.status(400).json(err);
+        })
+}
+
+module.exports.getAllCountdowns = (req,res) => {
+    Countdown.find()
+    .then((req) => res.json(req))
+    .catch((err) => console.log(err))
+}
+
+module.exports.getOneCountdown = (req,res) => {
+    Countdown.findById({_id:req.params.id})
+    .then((req)=>{
+        console.log("In getOneCountdown")
+        res.json(req)
+    })
+    .catch((err) => console.log(err))
+}
+
+module.exports.deleteCountdown = (req,res) => {
+    Countdown.deleteOne({_id:req.params.id})
     .then((req) => res.json(req))
     .catch((err) => console.log(err))
 }

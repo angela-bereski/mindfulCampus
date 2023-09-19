@@ -19,6 +19,11 @@ module.exports = (app) => {
     app.post('/api/createTodo', User.createTodo);
     app.delete('/api/deleteTodo/:id', User.deleteTodo);
 
+    app.get('/api/getAllCountdowns', User.getAllCountdowns);
+    app.get('/api/getOneCountdown/:id', User.getOneCountdown);
+    app.post('/api/createCountdown', User.createCountdown);
+    app.delete('/api/deleteCountdown/:id', User.deleteCountdown);
+
     //log and reg commands
     app.post('/api/register', User.register);
     app.post('/api/login', User.login);

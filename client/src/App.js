@@ -18,6 +18,7 @@ import Resources from './components/Resources';
 import ProtectedRoute from './components/ProtectedRoute';
 import Todoform from './components/Todoform';
 import JobAdd from './components/JobAdd';
+import CountdownAdd from './components/CountdownAdd';
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
           <Route path="/" element={<ProtectedRoute />}>
             <Route element={<UserDashboard  />} path="/dashboard" />
             <Route element={<Todoform  />} path="/addToDo" />
+            <Route element={<CountdownAdd  />} path="/addCountdown" />
             <Route element={<Yoga/>} path="/yoga" />
             <Route element={<BrainBreaks/>} path="/brainbreaks" />
             <Route element={<Meditation/>} path="/meditation" />

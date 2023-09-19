@@ -14,6 +14,8 @@ import buttonSound from '../assets/mixkit-cool-interface-click-tone-2568.wav'
 import Todolist from './Todolist';
 import Todoform from './Todoform';
 import Todo2 from './Todo2';
+import CountdownAdd from './CountdownAdd';
+import CountdownView from './CountdownView';
 
 
 
@@ -63,7 +65,10 @@ const UserDashboard = () => {
         <div ><Todolist/></div>
         <button className="navButton2" onClick={()=> {audio.play(); navigate("/addToDo")} }>Add a Task</button>
 
+        <button className="navButton2" onClick={()=> {audio.play(); navigate("/addCountdown")} }>Add a Countdown</button>
+
         <div>
+        <div>< CountdownView /></div>
           {/* <Todoform />
           <Todolist /> */}
         </div>
