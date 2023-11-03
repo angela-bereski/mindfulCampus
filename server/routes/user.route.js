@@ -14,6 +14,12 @@ module.exports = (app) => {
     app.post('/api/createJob', User.createJob);
     app.delete('/api/deleteJob/:id', User.deleteJob);
 
+    app.get('/api/getAllNetworks', User.getAllNetworks);
+    app.get('/api/getOneNetwork/:id', User.getOneNetwork);
+    app.post('/api/createNetwork', User.createNetwork);
+    app.put('/api/editNetwork/:id', User.editNetwork);
+    app.delete('/api/deleteNetwork/:id', User.deleteNetwork);
+
     app.get('/api/getAllTodos', User.getAllTodos);
     app.get('/api/getOneTodo/:id', User.getOneTodo);
     app.post('/api/createTodo', User.createTodo);
