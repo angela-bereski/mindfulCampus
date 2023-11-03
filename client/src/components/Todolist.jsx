@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from "react-router-dom";
+import buttonSound from '../assets/mixkit-cool-interface-click-tone-2568.wav'
 
 const Todolist = () => {
   const [todolist,setTodolist] = useState([])
@@ -11,6 +12,7 @@ const Todolist = () => {
   const { id } = useParams();
 
   const navigate = useNavigate()
+  const audio = new Audio(buttonSound)
 
   useEffect(()=>{
       axios.get('http://localhost:8000/api/getAllTodos',{withCredentials:true})
@@ -80,9 +82,8 @@ const boxChecked = (id) => {
             ) : null
           ))
         }
-
-
-</div>
+    </div>
+    <button className="navButton2" onClick={()=> {audio.play(); navigate("/addToDo")} }>Add a Task</button>
 </div>
   );
 };

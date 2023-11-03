@@ -19,6 +19,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Todoform from './components/Todoform';
 import JobAdd from './components/JobAdd';
 import CountdownAdd from './components/CountdownAdd';
+import NetworkAdd from './components/NetworkAdd';
 
 function App() {
 
@@ -43,6 +44,7 @@ function App() {
             <Route element={<Meditation/>} path="/meditation" />
             <Route element={<MoreIdeas/>} path="/brainbreaks/more" />
             <Route element={<Networking/>} path="/networking" />
+            <Route element={<NetworkAdd/>} path="/addnewnetwork" />
             <Route element={<JobBoard/>} path="/jobboard" />
             <Route element={<JobAdd/>} path="/addnewjob" />
             <Route element={<Resources/>} path="/resources" />

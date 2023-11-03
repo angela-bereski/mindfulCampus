@@ -16,6 +16,7 @@ import Todoform from './Todoform';
 import Todo2 from './Todo2';
 import CountdownAdd from './CountdownAdd';
 import CountdownView from './CountdownView';
+import Confetti from 'react-confetti';
 
 
 
@@ -62,21 +63,21 @@ const UserDashboard = () => {
       <UserNav />
       <div className='homeHome flex-row flex p-1 justify-around flex-wrap rounded'>
         <div className='title1'>Welcome, {loggedUser1.firstName} !</div>
-        <div ><Todolist/></div>
-        <button className="navButton2" onClick={()=> {audio.play(); navigate("/addToDo")} }>Add a Task</button>
-
-        <button className="navButton2" onClick={()=> {audio.play(); navigate("/addCountdown")} }>Add a Countdown</button>
-
-        <div>
-        <div>< CountdownView /></div>
-          {/* <Todoform />
-          <Todolist /> */}
+        <div className='orgStuff'>
+          <div className='orgWithin'>
+            <Todolist/>
+          </div>
+          <div className='orgWithin'>
+            < CountdownView />
+          </div>
         </div>
-        <div className='dashItems'>
-          <img style={{whiteSpace:'nowrap',  display:'inline'}} src={studentResources} alt="Student Resources" onClick={()=> {audio.play(); navigate("/resources")} }/>
-          <img style={{whiteSpace:'nowrap',  display:'inline'}} src={brainBreak} alt="Brain Breaks" onClick={()=> {audio.play(); navigate("/brainbreaks")} }/>
-          <img style={{whiteSpace:'nowrap',  display:'inline'}} src={networking} alt="Networking" onClick={()=> {audio.play(); navigate("/networking")} }/>
-          <img style={{whiteSpace:'nowrap',  display:'inline'}} src={jobBoard} alt="Job Board" onClick={()=> {audio.play(); navigate("/jobboard")} }/>
+        <div className='dashSidebar'>
+          <div className='dashItems'>
+            <img style={{whiteSpace:'nowrap',  display:'inline'}} src={studentResources} alt="Student Resources" onClick={()=> {audio.play(); navigate("/resources")} }/>
+            <img style={{whiteSpace:'nowrap',  display:'inline'}} src={brainBreak} alt="Brain Breaks" onClick={()=> {audio.play(); navigate("/brainbreaks")} }/>
+            <img style={{whiteSpace:'nowrap',  display:'inline'}} src={networking} alt="Networking" onClick={()=> {audio.play(); navigate("/networking")} }/>
+            <img style={{whiteSpace:'nowrap',  display:'inline'}} src={jobBoard} alt="Job Board" onClick={()=> {audio.play(); navigate("/jobboard")} }/>
+          </div>
         </div>
       </div>
     </div>

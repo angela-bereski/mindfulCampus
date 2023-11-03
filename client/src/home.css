@@ -5,7 +5,7 @@
     background-color: white;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: center;
     font-family: montserrat;
     min-height: 74vh;

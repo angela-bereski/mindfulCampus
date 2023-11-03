@@ -2,6 +2,7 @@ const User = require('../models/user.model');
 const Job = require('../models/job.model');
 const Todo = require('../models/todo.model');
 const Countdown = require('../models/countdown.model')
+const Network = require('../models/networking.model')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const axios = require('axios');
@@ -199,6 +200,51 @@ module.exports.getOneCountdown = (req,res) => {
 
 module.exports.deleteCountdown = (req,res) => {
     Countdown.deleteOne({_id:req.params.id})
+    .then((req) => res.json(req))
+    .catch((err) => console.log(err))
+}
+
+module.exports.createNetwork = (req,res) => {
+    let network = new Network(req.body)
+    console.log(network)
+    network.save()
+        .then((result)=>
+        res.json(result))
+        .catch((err) => {
+            console.log("Error in create network")
+            console.log(err);
+            res.status(400).json(err);
+        })
+}
+
+module.exports.getAllNetworks = (req,res) => {
+    Network.find()
+    .then((req) => res.json(req))
+    .catch((err) => console.log(err))
+}
+
+module.exports.getOneNetwork = (req,res) => {
+    Network.findById({_id:req.params.id})
+    .then((req)=>{
+        console.log("In getOneNetwork")
+        res.json(req)
+    })
+    .catch((err) => console.log(err))
+}
+
+module.exports.editNetwork = (req, res) => {
+    Network.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
+    // .then((result) => res.json(result))
+    // .catch((err) => res.status(400).json(err));
+    .then((req)=>{
+        console.log("In editNetwork")
+        res.json(req)
+    })
+    .catch((err) => console.log(err))
+}
+
+module.exports.deleteNetwork = (req,res) => {
+    Network.deleteOne({_id:req.params.id})
     .then((req) => res.json(req))
     .catch((err) => console.log(err))
 }

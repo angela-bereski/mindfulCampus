@@ -9,32 +9,65 @@ const NetworkAdd = () => {
     const [website,setWebsite] = useState('')
     const [location,setLocation] = useState('')
     const [wherework,setWherework] = useState('')
-    const [specialties,setSpecialities] = useState('')
+    const [specialties,setSpecialties] = useState('')
 
     const [errors,setErrors] = useState({})
 
+    const localUser = localStorage.getItem('loggedUser');
+    const loggedUser1 = JSON.parse(localUser);
+
     const navigate = useNavigate()
 
-    const handleSubmit = (e) =>{
-        e.preventDefault()
-        axios.post('http://localhost:8000/api/networkProfile',{
-            firstName,
-            lastName,
-            email,
-            website,
-            location,
-            wherework,
-            specialties
-        }).then((res)=>{
-            console.log(res)
-            console.log("catch from back-end")
-            navigate('/networking')
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-        }).catch((err)=>{
-            console.log(err)
-            console.log("error is caught on front-end")
-            setErrors(err.response.data.errors)
-        })
+        try {
+            const result = await axios.post('http://localhost:8000/api/createNetwork', {
+              createdBy: {
+                id: loggedUser1._id,
+                name: loggedUser1.firstName,
+              },
+              firstName,
+              lastName,
+              email, 
+              website,
+              location,
+              wherework,
+              specialties
+            });
+      
+            setFirstName('');
+            setLastName('');
+            setEmail('');
+            setWebsite('');
+            setLocation('');
+            setWherework('');
+            setSpecialties('');
+            // fetchTodoList(); // Fetch updated task list after adding a task
+            navigate('/networking');
+          } catch (err) {
+            const errorResponse = err.response.data.errors;
+            setErrors(errorResponse);
+          }
+        
+        // axios.post('http://localhost:8000/api/networkProfile',{
+        //     firstName,
+        //     lastName,
+        //     email,
+        //     website,
+        //     location,
+        //     wherework,
+        //     specialties
+        // }).then((res)=>{
+        //     console.log(res)
+        //     console.log("catch from back-end")
+        //     navigate('/networking')
+
+        // }).catch((err)=>{
+        //     console.log(err)
+        //     console.log("error is caught on front-end")
+        //     setErrors(err.response.data.errors)
+        // })
     }
 
   return (
@@ -152,7 +185,7 @@ const NetworkAdd = () => {
                             placeholder="List any modalities you specialize in"
                             type="text"
                             value={specialties}
-                            onChange={(e) => setSpecialities(e.target.value)}
+                            onChange={(e) => setSpecialties(e.target.value)}
                         />
                     </div>
                     {/* LOCATION END  */}

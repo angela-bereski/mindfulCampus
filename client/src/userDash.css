@@ -1,4 +1,65 @@
+/* Add responsive styles for the entire User Dashboard */
+.homeHome {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
 .dashTabs {
     width: 50px;
 }
 
+  /* Style for Confetti animation */
+  /* You can customize this further if needed */
+  .react-confetti {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+  }
+
+  /* Style for the dashboard tabs/icons */
+.dashItems {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+/* Add hover effect for dashboard icons */
+.dashItems img:hover {
+  transform: scale(1.1);
+}
+
+/* Style for the "Welcome" title */
+/* .title1 {
+  text-align: center;
+  font-size: 24px;
+  margin: 20px 0;
+} */
+  
+.orgStuff {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* .orgWithin {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+} */
+
+.orgWithin {
+  text-align: center;
+  margin: 10px;
+}
+
+/* Add responsive styles for the organized sections */
+@media (max-width: 768px) {
+  .orgStuff {
+    flex-direction: column;
+  }
+}
