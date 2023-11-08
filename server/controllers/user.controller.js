@@ -82,43 +82,95 @@ module.exports.getOneJob = (req,res) => {
     .catch((err) => console.log(err))
 }
 
+
+module.exports.editJob = (req, res) => {
+    Job.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
+    // .then((result) => res.json(result))
+    // .catch((err) => res.status(400).json(err));
+    .then((req)=>{
+        console.log("In editJob")
+        res.json(req)
+    })
+    .catch((err) => console.log(err))
+}
+
 module.exports.deleteJob = (req,res) => {
     Job.deleteOne({_id:req.params.id})
     .then((req) => res.json(req))
     .catch((err) => console.log(err))
 }
 
-module.exports.login = async (req,res) => {
-    User.findOne({email: req.body.email})
-        .then(user => {
-            if (user === null) {
-                res.status(400).json({message:'Invalid login attempt'})
-            } else {
-                bcrypt.compare(req.body.password, user.password)
-                    .then(passwordIsValid => {
-                        if (passwordIsValid) {
-                            res.
-                            cookie(
-                                'usertoken',
-                                jwt.sign({_id: user._id}, process.env.JWT_SECRET),
-                                {
-                                    httpOnly:true
-                                }
-                            )
-                            .json({msg: 'success!'});
-                        } else {
-                            res.status(400).json({msg: 'Invalid login attempt'})
-                        }
-                    })
-                .catch(err => {
-                    console.log('error from bcrypt compare');
-                    console.log(err);
-                    res.status(400).json({msg: 'Invalid login attempt'})
-                });
-            }
-        })
-    .catch(err => res.status(400).json(err));
-}
+// module.exports.login = async (req,res) => {
+//     User.findOne({email: req.body.email})
+//         .then(user => {
+//             if (user === null) {
+//                 res.status(400).json({message:'Invalid login attempt'})
+//             } else {
+//                 bcrypt.compare(req.body.password, user.password)
+//                     .then(passwordIsValid => {
+//                         if (passwordIsValid) {
+//                             res.
+//                             cookie(
+//                                 'usertoken',
+//                                 jwt.sign({_id: user._id}, process.env.JWT_SECRET),
+//                                 {
+//                                     httpOnly:true
+//                                 }
+//                             )
+//                             .json({msg: 'success!'});
+//                         } else {
+//                             res.status(400).json({msg: 'Invalid login attempt'})
+//                         }
+//                     })
+//                 .catch(err => {
+//                     console.log('error from bcrypt compare');
+//                     console.log(err);
+//                     res.status(400).json({msg: 'Invalid login attempt'})
+//                 });
+//             }
+//         })
+//     .catch(err => res.status(400).json(err));
+// }
+
+module.exports.login = async (req, res) => {
+    User.findOne({ email: req.body.email })
+      .then((user) => {
+        if (user === null) {
+          res.status(400).json({ message: 'Invalid email or password' });
+        } else {
+          bcrypt.compare(req.body.password, user.password)
+            .then((passwordIsValid) => {
+              console.log('passwordIsValid:', passwordIsValid);
+              if (passwordIsValid) {
+                res.cookie(
+                  'usertoken',
+                  jwt.sign({ _id: user._id }, process.env.JWT_SECRET),
+                  {
+                    httpOnly: true,
+                  }
+                ).json({ msg: 'success!' });
+              } else {
+                console.log('passwordIsValid:', passwordIsValid);
+                res.status(400).json({ message: 'Invalid email or password' });
+              }
+            })
+            .catch((err) => {
+              console.log('error from bcrypt compare');
+              console.log(err);
+              res.status(400).json({ message: 'Invalid email or password' });
+            });
+        }
+      })
+      .catch((err) => {
+        console.log('error from User.findOne');
+        console.log(err);
+        res.status(400).json(err);
+      });
+  };
+  
+  
+  
+  
 
 module.exports.logOut = (req, res) => {
     console.log("In logout controller")

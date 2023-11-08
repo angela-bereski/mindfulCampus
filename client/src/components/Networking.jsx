@@ -17,7 +17,7 @@ const Networking = () => {
         <UserNav />
         <div lassName='homeHome flex-row flex p-1 justify-around flex-wrap rounded'>
         <div className='descrip2A'>
-            <button className="jobButton" onClick={()=> {audio.play(); navigate("/addnewnetwork")} }>Add a New Networking Profile</button>
+            <button className="jobButton" onClick={()=> {audio.play(); navigate("/addnewnetwork")} }>add a new networking profile</button>
         </div>
             <NetworkingList />
         </div>

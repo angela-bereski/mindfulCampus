@@ -37,7 +37,7 @@
     display: inline-flex;
     font-family: "montserrat",monospace;
     height: 30px;
-    width: 175px;
+    width: 130px;
     justify-content: center;
     line-height: 1;
     list-style: none;
@@ -75,6 +75,8 @@ button:hover {
     color:rgb(0, 0, 0);
 }
 
+
+
 @media (min-width:767px) {
     .plainLogo {
       display: none;
@@ -84,7 +86,7 @@ button:hover {
   
     @media (max-width: 767px){
   
-      .leftNav{
+      .navbar2{
         display: none;
       }
   
@@ -92,12 +94,12 @@ button:hover {
         display: none;
       }
       
-      .plainLogo{
+      /* .plainLogo{
         align-self: left;
         width: 250;
         height: 44.7;
         margin-left: 0;
-      }
+      } */
 
   
     }

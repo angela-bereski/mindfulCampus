@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import buttonSound from '../assets/mixkit-cool-interface-click-tone-2568.wav'
+
 
 const Todoform = () => {
   const [task, setTask] = useState('');
@@ -11,6 +13,7 @@ const Todoform = () => {
   const loggedUser1 = JSON.parse(localUser);
 
   const navigate = useNavigate();
+  const audio = new Audio(buttonSound)
 
   const fetchTodoList = async () => {
     try {
@@ -72,7 +75,7 @@ const Todoform = () => {
               <p className="text-red-600 text-center">{errors.task.message}</p>
             ) : null}
           </div>
-          <button className="bg-[#f8906d] uppercase py-4 w-full text-white text-m tracking-widest">
+          <button className="bg-[#f8906d] uppercase py-4 w-full text-white text-m tracking-widest" onClick={() => audio.play()}>
             Submit
           </button>
         </div>

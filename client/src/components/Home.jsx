@@ -27,7 +27,7 @@ const Home = () => {
             </div>
             <div className='descrip2A'>
                 <p className='title5'>Welcome to BMTI's Mindful Campus,<br/>your productivity launchpad.<img style={{whiteSpace:'nowrap',  display:'inline'}} className='rocket' src={rocket} alt="blast off..." /></p>
-                <button className="navButton" onClick={()=> {audio.play(); navigate("/logreg")} }>enter</button>
+                <button className="navButton" onClick={()=> {audio.play(); navigate("/login")} }>enter</button>
             </div>
 
 

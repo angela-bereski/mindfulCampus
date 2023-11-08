@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import buttonSound from '../assets/mixkit-cool-interface-click-tone-2568.wav'
+
 
 const Register = () => {
 
@@ -14,9 +16,14 @@ const Register = () => {
 
 
 	const navigate = useNavigate();
+	const audio = new Audio(buttonSound)
+
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+
+		// Clear errors when the user attempts to submit.
+		setErrors({});
 
         try {
             let newUser = {
@@ -40,7 +47,7 @@ const Register = () => {
                 localStorage.setItem('loggedUser', JSON.stringify(logged.data))
                 console.log(`Logged in user is: ${logged.data.firstName}`)
 				alert(`Thanks for registering and welcome to the BMTI fam! Please login to access your personal dashboard.`)
-                navigate('/logreg')
+                navigate('/login')
 				setFirstName('');
 				setLastName('');
 				setEmail('');
@@ -148,14 +155,17 @@ const Register = () => {
 									type="password"
 									onChange={(e)=> setConfirmPassword(e.target.value)}
 								/>
-								{errors.password ? (
+								{/* {errors.password ? (
 									<p className="text-red-600 text-center">Passwords must match.</p>
-								) : null}
+								) : null} */}
+								    {password !== confirmPassword ? (  
+        <p className="text-red-600 text-center">Passwords must match.</p>
+    ) : null}
 							</div>
 							{/* CONFIRM PASSWORD END  */}
 						</div>
 						<div>
-							<button className="bg-[#f8906d] uppercase py-4 w-full text-white text-m tracking-widest">
+							<button className="bg-[#f8906d] uppercase py-4 w-full text-white text-m tracking-widest" onClick={() => audio.play()}>
 								Submit
 							</button>
 						</div>

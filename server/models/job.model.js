@@ -26,6 +26,10 @@ const JobSchema = new mongoose.Schema({
     contact: {
         type: String,
         required: [true, "Contact info is required"]
+    },
+    postedOn: {
+        type: Date,
+        required: [true, "Post date required."],
     }
 }, { timestamps: true });
 

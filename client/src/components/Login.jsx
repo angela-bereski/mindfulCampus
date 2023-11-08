@@ -1,6 +1,8 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import buttonSound from '../assets/mixkit-cool-interface-click-tone-2568.wav'
+
 const Login = () => {
 	
 	const [email, setEmail] = useState("");
@@ -8,7 +10,7 @@ const Login = () => {
 	const [ errors, setErrors ] = useState([]);
 	
 	const navigate = useNavigate();
-
+	const audio = new Audio(buttonSound)
 	const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -21,11 +23,18 @@ const Login = () => {
         localStorage.setItem('loggedUser', JSON.stringify(logged.data))
         console.log(`Logged in user is: ${logged.data.firstName}`)
         navigate('/dashboard')
-    } catch(err) {
-        const errorResponse = err.response.data.message;
-        setErrors(errorResponse);
-        console.log('error')
-    }
+	} catch (err) {
+		console.log('errorResponse:', err.response);
+		console.log('errorResponse:', err.response.data); // Log the entire error response
+		const errorResponse = err.response.data.message;
+		setErrors(errorResponse);
+		console.log('error');
+	}
+    // } catch(err) {
+    //     const errorResponse = err.response.data.message;
+    //     setErrors(errorResponse);
+    //     console.log('error')
+    // }
 	};
 
 	return (
@@ -64,13 +73,17 @@ const Login = () => {
 								/>
 							</div>
 						</div>
-						{
-							errors ? <p className="text-red-600 text-center mb-2">{errors}</p> : null
-						}
+						{/* {
+							errors ? <p className="text-red-600 text-center mb-2">{errors.msg}</p> : null
+						} */}
+						{errors ? <p className="text-red-600 text-center mb-2">{errors}</p> : null}
+
+
 						<div>
 							<button
 								className="bg-[#f8906d] uppercase py-4 w-full text-white text-m tracking-widest"
 								value="submit"
+								onClick={() => audio.play()}
 							>
 								Submit
 							</button>

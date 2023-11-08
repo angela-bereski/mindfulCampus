@@ -61,17 +61,17 @@ const UserDashboard = () => {
   return (
     <div>
       <UserNav />
-      <div className='homeHome flex-row flex p-1 justify-around flex-wrap rounded'>
-        <div className='title1'>Welcome, {loggedUser1.firstName} !</div>
-        <div className='orgStuff'>
-          <div className='orgWithin'>
+      <div className='homeHome1 flex-row flex p-1 justify-around flex-wrap rounded'>
+        <div className='titleUserDash'>Welcome, {loggedUser1.firstName}!</div>
+        <div className='orgStuff  flex-row flex p-1 lg:flex-row md:flex-col sm:flex-col xs:flex-col justify-around flex-wrap rounded'>
+          <div className='orgWithin flex-row flex p-1 justify-around flex-wrap rounded'>
             <Todolist/>
           </div>
-          <div className='orgWithin'>
+          <div className='orgWithin flex-row flex p-1 justify-around flex-wrap rounded'>
             < CountdownView />
           </div>
         </div>
-        <div className='dashSidebar'>
+        <div className='dashSidebar flex-row flex p-1 lg:flex-row md:flex-col sm:flex-col xs:flex-col justify-around flex-wrap rounded'>
           <div className='dashItems'>
             <img style={{whiteSpace:'nowrap',  display:'inline'}} src={studentResources} alt="Student Resources" onClick={()=> {audio.play(); navigate("/resources")} }/>
             <img style={{whiteSpace:'nowrap',  display:'inline'}} src={brainBreak} alt="Brain Breaks" onClick={()=> {audio.play(); navigate("/brainbreaks")} }/>
