@@ -38,8 +38,25 @@
 
 }
 
+.title1Countdown {
+    font-size: large;
+    font-weight: 400;
+    color: #0097B2;
+    text-shadow: 1px 1px 1px #f8906d;
+    padding: 0px 0px 5px 0px;
+    text-transform: uppercase;
+}
+
 .title2 {
     font-size: xx-large;
+    font-weight: 800;
+    color: #f8906d;
+    text-shadow: 2px .5px 6px #16ccec;
+    padding: 0px 0px 5px 0px;
+}
+
+.title2Dash {
+    font-size: x-large;
     font-weight: 800;
     color: #f8906d;
     text-shadow: 2px .5px 6px #16ccec;
@@ -92,7 +109,7 @@ p {
 .homePic {
     width: 275px;
     margin: 5px 15px;
-    box-shadow: 2px 2px 2px rgb(248, 144, 109, .8);
+    box-shadow: 2px 2px 2px #0097B2;
 }
 
 .yogaVids {
@@ -120,24 +137,28 @@ p {
 }
 
 .borderPeep {
-    background: #fff;
+    background: #e9faf8;
     font-family: Montserrat, sans-serif;;
     font-size: 18px;
     line-height: 20px;
+    width: 400px; 
+    height: 250px; 
     color: #014d45;
-    padding: 40px;
-    margin: 5px;
-    box-shadow:
-        inset #0097B2 0 0 0 5px, 
-      inset #059c8e 0 0 0 1px, 
-      inset #0cab9c 0 0 0 10px, 
-      inset #1fbdae 0 0 0 11px, 
-      inset #8ce9ff 0 0 0 16px, 
-      inset #48e4d6 0 0 0 17px, 
-      inset #e5f9f7 0 0 0 21px, 
-      inset #bfecf7 0 0 0 22px;
+    padding: 20px;
+    margin: 10px;
+    border: 5px solid transparent;
+    border-image: linear-gradient(to right, #0097B2, #059c8e, #0cab9c, #1fbdae, #8ce9ff, #48e4d6, #e5f9f7, #bfecf7);
+    border-image-slice: 1;
+    border-bottom: ;
     text-shadow: 1px 1px 1px #bfecf7;
+    /* word-wrap allows text to wrap within the container */
+    word-wrap: break-word;
+    overflow-y: auto;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    text-align:  justify;
 }
+
+
 
 .networkingList {
     flex-direction: row;
@@ -154,10 +175,10 @@ p {
     box-sizing: border-box;
     color: white;
     cursor: pointer;
-    display: inline-flex;
+    display: inline-block;
     font-family: "montserrat",monospace;
-    height: 35px;
-    /* width: 75px; */
+    height: 30px;
+    
     justify-content: center;
     line-height: 1;
     list-style: none;
@@ -176,7 +197,113 @@ p {
     font-size: 18px;
     }
 
+.navButtonMini {
+    align-items: center;
+    appearance: none;
+    background-color: #EAF73E;
+    border-radius: 12px;
+    border-width: 0;
+    box-shadow:rgba(45, 35, 66, 0.4) 0 1px 2px, rgba(45, 35, 66, 0.3) 0 3.5px 6.5px -1.5px, #D6D6E7 0 -1.5px 0 inset;
+    box-sizing: border-box;
+    color: #1A1A1A;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: "montserrat",monospace;
+    height: 18px;
+    width: auto;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 12px;
+    padding-right: 12px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: box-shadow .15s,transform .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow,transform;
+    font-size: 10px;
+}
 
+.navButton3 {
+
+    align-items: center;
+    appearance: none;
+    background-color: #f8906d;
+    border-radius: 12px;
+    border-width: 0;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "montserrat",monospace;
+    height: 30px;
+    width: auto;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 12px;
+    padding-right: 12px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: box-shadow .15s,transform .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow,transform;
+    font-size: 18px;
+    margin: 4px 0px;
+    }
+
+.moreCountdowns {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.userCountdowns {
+    display: flex;
+    flex-direction: column;
+    margin: 0px 5px;
+}
+
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+  
+  .tooltiptext {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    background-color: #e5f9f7;
+    color: #000; 
+    font-size: 75%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    top: 100%;
+    left: 0;
+    width: 200px;
+    text-align: center;
+    text-shadow: none; 
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .tooltip:hover .tooltiptext {
+    display: block;
+  }
 
 
 @media (max-width: 767px){

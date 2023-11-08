@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import UserNav from './UserNav';
+import buttonSound from '../assets/mixkit-cool-interface-click-tone-2568.wav'
 const NetworkAdd = () => {
 
     const [firstName,setFirstName] = useState('')
@@ -17,6 +19,7 @@ const NetworkAdd = () => {
     const loggedUser1 = JSON.parse(localUser);
 
     const navigate = useNavigate()
+    const audio = new Audio(buttonSound)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -71,8 +74,11 @@ const NetworkAdd = () => {
     }
 
   return (
+    <div>
+        <UserNav />
     <div className="bg-div">
     {/* NEW FORM ########### */}
+    <button className="jobButton" onClick={()=> {audio.play(); navigate("/networking")} }>back to networking</button>
     <div className="rotate">
         <div className="font-montserrat flex min-h-full p-3 pt-5">
             <form
@@ -129,6 +135,7 @@ const NetworkAdd = () => {
 									value={email} 
 									onChange={(e) => setEmail(e.target.value)}
 								/>
+
 							</div>
 							{/* EMAIL END  */}
 
@@ -199,6 +206,7 @@ const NetworkAdd = () => {
             </form>
         </div>
     </div>
+</div>
 </div>
   )
 }

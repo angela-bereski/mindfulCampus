@@ -21,7 +21,7 @@ const NetworkSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: [true, "Email is required"]
+        required: [false]
     },
     website: {
         type: String,
@@ -35,7 +35,7 @@ const NetworkSchema = new mongoose.Schema({
         type: String,
         required: [false]
     },
-    specialites: {
+    specialties: {
         type: String,
         required: [false]
     }

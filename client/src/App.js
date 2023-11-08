@@ -5,7 +5,7 @@ import './App.css';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './components/Home';
-import LogReg from './components/LogReg';
+import Log from './components/Log';
 import UserDashboard from './components/UserDashboard';
 import Yoga from './components/Yoga';
 import BrainBreaks from './components/BrainBreaks';
@@ -20,6 +20,9 @@ import Todoform from './components/Todoform';
 import JobAdd from './components/JobAdd';
 import CountdownAdd from './components/CountdownAdd';
 import NetworkAdd from './components/NetworkAdd';
+import EditNetwork from './components/EditNetwork';
+import Reg from './components/Reg';
+import EditJob from './components/EditJob';
 
 function App() {
 
@@ -33,7 +36,8 @@ function App() {
         <Navbar />
         <Routes>
           <Route element={<Home />} path="/" />
-          <Route element={<LogReg />} path="/logreg" />
+          <Route element={<Log />} path="/login" />
+          <Route element={<Reg />} path="/register" />
           <Route element={<ThankYouReg/>} path="/thankyou" />
           <Route path="/" element={<ProtectedRoute />}>
             <Route element={<UserDashboard  />} path="/dashboard" />
@@ -45,8 +49,10 @@ function App() {
             <Route element={<MoreIdeas/>} path="/brainbreaks/more" />
             <Route element={<Networking/>} path="/networking" />
             <Route element={<NetworkAdd/>} path="/addnewnetwork" />
+            <Route element={<EditNetwork/>} path="/editNetwork/:id" />
             <Route element={<JobBoard/>} path="/jobboard" />
             <Route element={<JobAdd/>} path="/addnewjob" />
+            <Route element={<EditJob/>} path="/editJob/:id" />
             <Route element={<Resources/>} path="/resources" />
           </Route>
         </Routes>

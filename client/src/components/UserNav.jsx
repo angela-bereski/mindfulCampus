@@ -43,9 +43,9 @@ const UserNav = (props) => {
                 <li className='listItem2'>
                     <button className="navButton2" onClick={()=> {audio.play(); navigate("/jobboard")} }>job board</button>
                 </li>
-                <li className='listItem2'>
+                {/* <li className='listItem2'>
                     <button className="navButton2" onClick={()=> {handleLogout(); audio.play()} }>logout</button>
-                </li>
+                </li> */}
             </ul>
         </div>
     </div>

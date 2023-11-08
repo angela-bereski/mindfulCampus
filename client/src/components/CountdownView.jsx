@@ -1,10 +1,10 @@
-
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import Confetti from 'react-confetti';
-import buttonSound from '../assets/mixkit-cool-interface-click-tone-2568.wav'
+import buttonSound from '../assets/mixkit-cool-interface-click-tone-2568.wav';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 const CountdownView = () => {
   const [countdownItems, setCountdownItems] = useState([]);
@@ -12,13 +12,12 @@ const CountdownView = () => {
   const [isConfettiActive, setIsConfettiActive] = useState(false);
   const [scrollHeight, setScrollHeight] = useState(window.innerHeight);
 
-
   const localUser = localStorage.getItem('loggedUser');
   const loggedUser1 = JSON.parse(localUser);
 
   const { id } = useParams();
   const navigate = useNavigate();
-  const audio = new Audio(buttonSound)
+  const audio = new Audio(buttonSound);
 
   // Function to retrieve countdown data from the server
   const fetchCountdownList = () => {
@@ -36,26 +35,39 @@ const CountdownView = () => {
     fetchCountdownList();
   }, []);
 
-
-
   // Function to delete a countdown
+  // const deleteCountdown = (id) => {
+  //   axios
+  //     .delete(`http://localhost:8000/api/deleteCountdown/${id}`)
+  //     .then((res) => {
+  //       console.log('Countdown deleted', res.data);
+  //       alert('You are about to permanently delete this countdown.');
+
+
+  //       fetchCountdownList();
+  //       navigate('/dashboard');
+  //       setIsConfettiActive(true);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+
   const deleteCountdown = (id) => {
-    axios
-      .delete(`http://localhost:8000/api/deleteCountdown/${id}`)
-      .then((res) => {
-        console.log('Countdown deleted', res.data);
-        alert('You are about to permanently delete this countdown.');
-
-        // Activate the confetti animation
-        
-
-        fetchCountdownList();
-        navigate('/dashboard');
-        setIsConfettiActive(true);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const confirmation = window.confirm('Are you sure you want to delete this countdown?');
+    if (confirmation) {
+      axios
+        .delete(`http://localhost:8000/api/deleteCountdown/${id}`)
+        .then((res) => {
+          console.log('Countdown deleted', res.data);
+          setCountdownlist((prevList) => prevList.filter((job) => job._id !== id));
+          navigate('/dashboard');
+          setIsConfettiActive(true);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   useEffect(() => {
@@ -63,7 +75,7 @@ const CountdownView = () => {
       const confettiTimeout = setTimeout(() => {
         setIsConfettiActive(false);
       }, 3000); // Adjust the delay as needed (in milliseconds)
-  
+
       return () => clearTimeout(confettiTimeout);
     }
   }, [isConfettiActive]);
@@ -73,7 +85,7 @@ const CountdownView = () => {
     const currentTime = new Date().getTime();
     const updatedCountdownList = countdownlist.map((countdown) => {
       if (countdown.countdownItems[0].days > 0 || countdown.countdownItems[0].hours > 0 || countdown.countdownItems[0].minutes > 0 || countdown.countdownItems[0].seconds > 0) {
-        const targetTime = new Date(countdown.date).getTime();
+        const targetTime = new Date(countdown.dateTime).getTime();
         const timeRemaining = targetTime - currentTime;
 
         if (timeRemaining > 0) {
@@ -96,7 +108,6 @@ const CountdownView = () => {
     setCountdownlist(updatedCountdownList);
   };
 
-
   useEffect(() => {
     const countdownInterval = setInterval(calculateTimeRemaining, 1000);
     return () => clearInterval(countdownInterval);
@@ -109,50 +120,50 @@ const CountdownView = () => {
     });
   }, []);
 
+  
+
   return (
-    <div className="homeHome flex-row flex p-1 justify-around flex-wrap rounded">
-      {isConfettiActive && <Confetti width={window.innerWidth} height={scrollHeight}/>}
-      <p className="title1">{loggedUser1.firstName}'s Countdown</p>
-      {/* <div className="descripA">
-        {countdownlist.map((countdown, index) =>
-          countdown.createdBy && loggedUser1.firstName === countdown.createdBy.name ? (
-            <div key={index}>
-              <p>{countdown.countdown}</p>
-              <div>
-                <p>Days: {countdown.countdownItems[0].days}</p>
-                <p>Hours: {countdown.countdownItems[0].hours}</p>
-                <p>Minutes: {countdown.countdownItems[0].minutes}</p>
-                <p>Seconds: {countdown.countdownItems[0].seconds}</p>
+    <div className="homeHome1 flex-row flex p-1 justify-around flex-wrap rounded">
+      {isConfettiActive && <Confetti width={window.innerWidth} height={scrollHeight} />}
+      <p className="title2Dash">
+        Countdown!
+        <span className="tooltip">
+          <FontAwesomeIcon icon={faInfoCircle} />
+          <span className="tooltiptext">
+            Countdown helps you track important events and deadlines. Set the date and time for your upcoming celebrations, meetings, or milestones. Watch the countdown tick away and stay excited as you anticipate the big moment. Never miss an important date with Countdown!
+          </span>
+        </span>
+      </p>
+      <div className="orgWithin">
+        <div className="moreCountdowns flex-row flex p-1 lg:flex-row md:flex-col sm:flex-col xs:flex-col justify-around flex-wrap rounded">
+          {countdownlist.map((countdown, index) =>
+            countdown.createdBy && loggedUser1.firstName === countdown.createdBy.name ? (
+              <div className="userCountdowns" key={index}>
+                <p className="title1Countdown">{countdown.countdown}</p>
+                {countdown.countdownItems[0].days === 0 &&
+                countdown.countdownItems[0].hours === 0 &&
+                countdown.countdownItems[0].minutes === 0 &&
+                countdown.countdownItems[0].seconds === 0 ? (
+                  <p>Countdown complete!</p>
+                ) : (
+                  <div>
+                    <p>Days: {countdown.countdownItems[0].days}</p>
+                    <p>Hours: {countdown.countdownItems[0].hours}</p>
+                    <p>Minutes: {countdown.countdownItems[0].minutes}</p>
+                    <p>Seconds: {countdown.countdownItems[0].seconds}</p>
+                  </div>
+                )}
+                <button className="navButtonMini" onClick={() => deleteCountdown(countdown._id)}>
+                  Delete
+                </button>
               </div>
-              <button onClick={() => deleteCountdown(countdown._id)}>Delete</button>
-            </div>
-          ) : null
-        )}
-      </div> */}
-      <div className="descripA">
-        {countdownlist.map((countdown, index) => 
-        countdown.createdBy && loggedUser1.firstName === countdown.createdBy.name ? (
-          <div key={index}>
-            <p>{countdown.countdown}</p>
-            {countdown.countdownItems[0].days === 0 &&
-            countdown.countdownItems[0].hours === 0 &&
-            countdown.countdownItems[0].minutes === 0 &&
-            countdown.countdownItems[0].seconds === 0 ? (
-              <p>Countdown complete!</p>
-            ) : (
-              <div>
-                <p>Days: {countdown.countdownItems[0].days}</p>
-                <p>Hours: {countdown.countdownItems[0].hours}</p>
-                <p>Minutes: {countdown.countdownItems[0].minutes}</p>
-                <p>Seconds: {countdown.countdownItems[0].seconds}</p>
-              </div>
-            )}
-            <button onClick={() =>  deleteCountdown(countdown._id)}>Delete</button>
-          </div>
-        ): null
-        )}
+            ) : null
+          )}
+        </div>
       </div>
-      <button className="navButton2" onClick={()=> {audio.play(); navigate("/addCountdown")} }>Add a Countdown</button>
+      <button className="navButton3" onClick={() => { audio.play(); navigate("/addCountdown") }}>
+        add a countdown
+      </button>
     </div>
   );
 };

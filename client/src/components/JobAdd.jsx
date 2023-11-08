@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import axios from 'axios';
 import buttonSound from '../assets/mixkit-cool-interface-click-tone-2568.wav'
 import { useNavigate } from 'react-router-dom';
+import UserNav from './UserNav';
 const JobAdd = () => {
 
 
@@ -9,6 +10,7 @@ const JobAdd = () => {
     const [nameOfBizHiring,setNameOfBizHiring] = useState('')
     const [description,setDescription] = useState('')
     const [contact,setContact] = useState('')
+    // const [postedOn, setPostedOn] = useState('')
     const [errors,setErrors] = useState({})
 
     const localUser = localStorage.getItem('loggedUser')
@@ -29,12 +31,14 @@ const JobAdd = () => {
                 nameOfBizHiring,
                 description,
                 contact,
+                postedOn: new Date()
                 })
                 navigate('/jobboard')
                 setTitle('');
                 setNameOfBizHiring('');
                 setDescription('');
                 setContact('');
+                // setPostedOn('');
         } catch(err) {
             debugger;
             const errorResponse = err.response.data.errors;
@@ -45,8 +49,11 @@ const JobAdd = () => {
     }
 
   return (
+    <div>
+        <UserNav />
+    
     <div className="bg-div">
-                    <button className="jobButton" onClick={()=> {audio.play(); navigate("/jobboard")} }>Back to Job Board</button>
+                    <button className="jobButton" onClick={()=> {audio.play(); navigate("/jobboard")} }>back to job board</button>
     {/* NEW FORM ########### */}
     <div className="rotate">
         <div className="font-montserrat flex min-h-full p-3 pt-5">
@@ -56,7 +63,7 @@ const JobAdd = () => {
             >
                 <div className="p-6">
                     <p className="text-3xl pl-3">Add Job Posting</p>
-                    {/* FIRST NAME START  */}
+                    {/* TITLE START  */}
                     <div className="mt-4 relative">
                         <div className="absolute top-0 left-0 w-8 h-8 flex justify-center items-center">
                             <i className="text-sm text-gray-400 fa-regular fa-location-dot"></i>
@@ -72,9 +79,9 @@ const JobAdd = () => {
                             <p className="text-red-600 text-center">{errors.title.message}</p>
                         ) : null}
                     </div>
-                    {/* FIRST NAME END */}
+                    {/* TITLE END */}
 
-                    {/* LAST NAME START  */}
+                    {/* BIZ NAME START  */}
                     <div className="mt-4 relative">
                         <div className="absolute top-0 left-0 w-8 h-8 flex justify-center items-center">
                             <i className="text-sm text-gray-400 fa-regular fa-location-dot"></i>
@@ -91,8 +98,8 @@ const JobAdd = () => {
                         ) : null}
                     </div>
 
-                    {/* LAST NAME END  */}
-                    							{/* EMAIL START  */}
+                    {/* BIZ NAME END  */}
+                    {/* DESC START  */}
 							<div className="mt-4 relative">
 								<div className="absolute top-0 left-0 w-8 h-8 flex justify-center items-center">
 									<i className="text-sm text-gray-400 fa-regular fa-location-dot"></i>
@@ -108,9 +115,9 @@ const JobAdd = () => {
                             <p className="text-red-600 text-center">{errors.description.message} </p>
                         ) : null}
 							</div>
-							{/* EMAIL END  */}
+							{/* DESC END  */}
 
-                    {/* WEBSITE START  */}
+                    {/* CONTACT START  */}
                     <div className="mt-4 relative">
                         <div className="absolute top-0 left-0 w-8 h-8 flex justify-center items-center">
                             <i className="text-sm text-gray-400 fa-regular fa-location-dot"></i>
@@ -126,17 +133,33 @@ const JobAdd = () => {
                             <p className="text-red-600 text-center">{errors.contact.message} </p>
                         ) : null}
                     </div>
-                    {/* WEBSITE END  */}
+                    {/* CONTACT END  */}
+                    {/* <div className="mt-4 relative">
+                        <div className="absolute top-0 left-0 w-8 h-8 flex justify-center items-center">
+                            <i className="text-sm text-gray-400 fa-regular fa-location-dot"></i>
+                        </div>
+                    <input
+                        className="w-full bg-gray-100 text-xs font-bold border-none py-2 pl-8 pr-4 rounded placeholder:text-gray-800"
+                        placeholder="Today's Date"
+                        type="date"
+                        value={postedOn}
+                        onChange={(e) => setPostedOn(e.target.value)}
+                    />
+                        {errors.postedOn ? (
+                        <p className="text-red-600 text-center">{errors.postedOn.message}</p>
+                        ) : null}
+                    </div> */}
                     <input type="hidden" name="userId" value={loggedUser1._id} />
                 </div>
                 <div>
-                    <button className="bg-[#f8906d] uppercase py-4 w-full text-white text-m tracking-widest">
+                    <button className="bg-[#f8906d] uppercase py-4 w-full text-white text-m tracking-widest" onClick={() => audio.play()}>
                         Submit
                     </button>
                 </div>
             </form>
         </div>
     </div>
+</div>
 </div>
   )
 }
