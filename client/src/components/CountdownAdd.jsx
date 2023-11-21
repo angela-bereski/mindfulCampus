@@ -261,6 +261,15 @@ const CountdownAdd = () => {
       return;
     }
 
+        // Check if the selected date is in the past
+        const selectedDate = new Date(dateTime).getTime();
+        const currentDate = new Date().getTime();
+    
+        if (selectedDate < currentDate) {
+          alert('Please select a future date and time.');
+          return;
+        }
+
     try {
       const result = await axios.post('http://localhost:8000/api/createCountdown', {
         createdBy: {
@@ -320,6 +329,8 @@ const CountdownAdd = () => {
                 type="datetime-local" // Use datetime-local input type
                 value={dateTime}
                 onChange={(e) => setDateTime(e.target.value)}
+                min={new Date().toISOString().split('T')[0] + 'T' + new Date().toISOString().split('T')[1]}
+                // onChange={(e) => setDateTime(e.target.value)}
               />
               {errors.date ? (
                 <p className="text-red-600 text-center">{errors.date.message}</p>
