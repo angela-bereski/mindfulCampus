@@ -158,7 +158,7 @@ const JobAdd = () => {
                 </div>
             </form>
         </div>
-        <p className='title5'>*Please note: Your job posting will automatically delete 90 days after posting.</p>
+        <p className='title5'>*Please note: Your job posting will be deleted 90 days after posting.</p>
 
     </div>
 </div>
