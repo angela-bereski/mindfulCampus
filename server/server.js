@@ -24,5 +24,5 @@ app.use(cors({credentials:true, origin:"http://localhost:3000"})); // middleware
 const UserRoutes = require('./routes/user.route')
 UserRoutes(app);
 
-const port = 8000;
+const port = process.env.PORT || 8000;
 app.listen(port, ()=> console.log(`Party on port: ${port}`));

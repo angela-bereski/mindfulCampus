@@ -1,5 +1,12 @@
 {
   "dependencies": {
     "node-cron": "^3.0.3"
+  },
+  "scripts": {
+    "start": "node server/server.js",
+    "heroku-postbuild": "cd client && npm install --only=prod && npm run build",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd server && npm install && node server.js",
+    "client": "cd client && npm install && npm start"
   }
 }

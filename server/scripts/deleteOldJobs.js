@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Job = require('../models/job');
+const Job = require('../models/job.model');
 const cron = require('node-cron');
 
 mongoose.connect('mongodb://127.0.0.1:27017/mindfulCampus', { useNewUrlParser: true, useUnifiedTopology: true });
